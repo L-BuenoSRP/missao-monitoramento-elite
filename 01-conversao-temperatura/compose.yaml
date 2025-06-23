@@ -1,0 +1,15 @@
+services:
+  conversao-temperatura:
+    image: fabriciosveronez/conversao-temperatura:v1
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

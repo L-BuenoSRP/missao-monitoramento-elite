@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conversao-temperatura
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: conversao-temperatura
+  template:
+    metadata:
+      labels:
+        app: conversao-temperatura
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: conversao-temperatura
+        image: fabriciosveronez/conversao-temperatura:v1
+        ports:
+        - containerPort: 8080
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conversao-temperatura-service
+  labels:
+    app: conversao-temperatura
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: conversao-temperatura
