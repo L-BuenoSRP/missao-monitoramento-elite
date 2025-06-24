@@ -1,0 +1,17 @@
+blinker==1.9.0
+click==8.2.1
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+greenlet==3.2.3
+gunicorn==21.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.2
+packaging==25.0
+prometheus_client==0.22.1
+prometheus_flask_exporter==0.23.2
+psycopg2-binary==2.9.7
+python-dotenv==1.0.0
+SQLAlchemy==2.0.41
+typing_extensions==4.14.0
+Werkzeug==2.3.7

@@ -16,7 +16,10 @@ helm repo update
 ## Comando de Instalação
 
 ```
-helm install prometheus prometheus-community/prometheus --set server.service.type=LoadBalancer
+helm install prometheus prometheus-community/prometheus --set server.service.type=LoadBalancer --set server.global.scrape_interval=10s
+
+
+helm upgrade prometheus prometheus-community/prometheus --set server.service.type=LoadBalancer --set server.global.scrape_interval=10s
 ```
 
 ## Grafana 

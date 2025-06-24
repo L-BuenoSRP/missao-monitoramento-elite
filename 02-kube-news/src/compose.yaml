@@ -1,0 +1,25 @@
+services:
+  app:
+    image: fabriciosveronez/kubedevnews:v1
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_DATABASE=kubedevnews
+      - DB_USERNAME=kubedevnews
+      - DB_PASSWORD=Pg#123
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=kubedevnews
+      - POSTGRES_USER=kubedevnews
+      - POSTGRES_PASSWORD=Pg#123
+    ports:
+      - "5432:5432"

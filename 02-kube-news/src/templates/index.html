@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubenews</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+3:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css') }}" />
+  </head>
+  <body>
+    {% include 'partial/header.html' %}
+
+    <main>
+        {% if posts|length == 0 %}
+        <div class="no-posts__container">
+            <div class="no-posts__image">
+                <img src="{{ url_for('static', filename='img/no-posts.gif') }}" alt="Nenhum post">
+            </div>
+            <h1 class="no-posts__message">Ainda não temos nenhum post, que tal você criar um?</h1>
+            <a class="no-posts__button" href="{{ url_for('posts.create_post') }}">Novo Post</a>
+        </div>
+        {% else %}
+            <div class="posts-list__container">                
+                <div class="posts-list__grid">
+                    {% for post in posts %}
+                    <div class="posts-list__item">
+                        <div class="post__card">
+                            <span class="post__card__date">{{ post.publishDate }}</span>
+                            <h4 class="post__card__title">{{ post.title }}</h4>
+                            <p class="post__card__description">{{ post.summary }}</p>
+                            <button class="post__card__button" onclick="location.href='{{ url_for('posts.view_post', id=post.id) }}';">Saiba Mais</button>
+                        </div>
+                    </div>
+                    {% endfor %}                    
+                </div>
+           </div>
+           {% endif %}  
+    </main>
+    {% include 'partial/footer.html' %}
+  </body>
+</html> 
