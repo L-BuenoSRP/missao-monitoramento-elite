@@ -10,6 +10,7 @@ services:
       - DB_PASSWORD=Pg#123
       - DB_HOST=db
       - DB_PORT=5432
+      - ERROR_RATE_PERCENT=20
     depends_on:
       - db
     volumes:
@@ -34,6 +35,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prom-alerts.yaml:/etc/prometheus/rules/alerts.yaml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
@@ -48,7 +50,18 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_USERS_ALLOW_SIGN_UP=false
     networks:
-      - app-network      
+      - app-network    
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - "9093:9093"
+    networks:
+      - app-network
+    volumes:
+      - ./prometheus/alert-config.yaml:/etc/alertmanager/alertmanager.yml
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
 
 networks:
   app-network:

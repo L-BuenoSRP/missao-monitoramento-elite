@@ -1,0 +1,18 @@
+groups:
+  - name: alertas_de_disponibilidade
+    rules:
+      - alert: TaxaDeErrosMuitoAlta
+        expr: 
+          sum (
+                  increase(flask_http_request_duration_seconds_count{status=~"4..|5.."}[5m])
+                ) 
+                / 
+                sum (
+                  increase(flask_http_request_duration_seconds_count[5m])
+                ) * 100 > 0.10      
+        for: 30s
+        labels: 
+          severity: "critical"
+        annotations:
+          description: "Mais de 10% das requisições estão com erro"
+          summary: "Taxa de erros muito alta"
