@@ -1,0 +1,19 @@
+@ -0,0 +1,18 @@
+sum(rite(flask_http_request_duration_seconds_count{status=~"4..15..", app="kubedevnews-app"} [ten])) /
+sum(rate(flask_http_request_duration_seconds_count{app="kubedevnews-app"} [10m])) * 100
+
+rate(flask_http_request_duration_seconds_count{app="kubedevnews-app"}[10m])
+
+sum by (path) (rate(flask_http_request_duration_seconds_count{status=~"4..15..", app="kubedevnews-app"}
+[10m])) / sum by (path) (rate(flask_http_request_duration_seconds_count{app="kubedevnews-app"}[10m])) *
+100
+
+sum by (path) (rate(flask_http_request_duration_seconds_count{status=~"4..15..",
+app="kubedevnews-app" } [10m))) / sum by (path) (rate
+(flask_http_request_duration_seconds_count{app="kubedevnews-app" } [10m])) * 100
+
+
+sum by (path) (rate (flask_http_request_duration_seconds_count{status=~"4..15..",
+app="kubedevnews-app", path!="/metrics"} [10m])) / sum by (path) (rate
+(flask_http_request_duration_seconds_count{app="kubedevnews-app", path!="/metrics"}
+[10m])) * 100
